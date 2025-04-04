@@ -1,13 +1,26 @@
 import cv2
 import torch
 from ultralytics import YOLO
+import os
 
 class ObjectDetectionProcessor:
 
-    def __init__(self, yolo_path):
-        # Load the YOLO model
-        self.model_path = yolo_path
-        self.model = YOLO(self.model_path)
+    def __init__(self):
+        engine_path = "yolo11n.engine"
+
+    #if not os.path.exists(engine_path):
+        print("⚙️  Exporting model to TensorRT FP32...")
+        # Load the original PyTorch model
+        model = YOLO("yolo11n.pt")
+        # Export to TensorRT with FP32 precision (half=False)
+        model.export(format="engine", half=False)
+        print("✅ Export completed using TensorRT FP32.")
+    #else:
+        print("✅ TensorRT FP32 engine already exists. Skipping export.")
+
+        # Load the exported TensorRT FP32 model
+        self.model = YOLO(engine_path)
+
         self.class_names = self.model.names  # Get class names
 
         # Average real-world dimensions of a stop sign (in meters)
@@ -28,9 +41,9 @@ class ObjectDetectionProcessor:
 
         # Extract detections and draw bounding boxes
         for result in results:
-            boxes = result.boxes.xyxy.numpy()  # Bounding box coordinates
-            confidences = result.boxes.conf.numpy()  # Confidence scores
-            labels = result.boxes.cls.numpy().astype(int)  # Class labels
+            boxes = result.boxes.xyxy.cpu().numpy()             # Bounding box coordinates, ".cpu()" asegura que el tensor esté en la CPU antes de convertirlo a NumPy.
+            confidences = result.boxes.conf.cpu().numpy()       # Confidence scores
+            labels = result.boxes.cls.cpu().numpy().astype(int) # Class labels
 
             valid_distance = True  # Default flag for distance validation
 

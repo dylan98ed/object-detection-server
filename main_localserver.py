@@ -15,13 +15,8 @@ config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
 config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
 pipeline.start(config)
 
-# Cargar YOLO
-yolo_weights = "train_model/train2/weights/best.pt"
-yolo_path = "train_model/train2/weights/best_ncnn_model"
-if not os.path.exists(yolo_path):
-    model = YOLO(yolo_weights)
-    model.export(format="ncnn")
-processor = ObjectDetectionProcessor(yolo_path)
+# Cargar el modelo de deteccion de objetos
+processor = ObjectDetectionProcessor()
 
 # Función para escalar mapa de profundidad
 def depth_to_colormap(depth_frame):
