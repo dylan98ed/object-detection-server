@@ -1,0 +1,27 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/dy/dev_ws/install/serial_motor_demo_msgs/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/dy/dev_ws/src/Simulator/src/plugins_pkgs/bno055_plugin/include/**",
+        "/home/dy/dev_ws/src/Simulator/src/plugins_pkgs/car_plugin/include/**",
+        "/home/dy/dev_ws/src/Simulator/src/plugins_pkgs/gps_plugin/include/**",
+        "/home/dy/dev_ws/src/Simulator/src/plugins_pkgs/pedestrian_object_plugin/include/**",
+        "/home/dy/dev_ws/src/Simulator/src/plugins_pkgs/traffic_light_plugin/include/**",
+        "/home/dy/dev_ws/src/articubot_one/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
